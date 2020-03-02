@@ -8,7 +8,7 @@ import java.lang.String;
 
 public class User {
 
-    private UserDao userData = new UserDao("carletoc", "1683864");
+    private UserDao userData = new UserDao("hassana", "1810531");
     private String name;
     private Cart cart;
     private String address;
@@ -23,10 +23,7 @@ public class User {
     }
 
 
-
-    public String getName(){
-        return name;
-    }
+    public String getName(){ return name; }
 
     public String getEmail(){
         return email;

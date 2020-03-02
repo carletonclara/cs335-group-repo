@@ -15,14 +15,14 @@ public class Validations {
     public void Validations(int id){
         User user = new User(id);
         address = user.getAddress();
-        city = user.getCity();
-        state = user.getState();
-        zipcode = user.getZipcode();
+        //city = user.getCity();
+        //state = user.getState();
+        //zipcode = user.getZipcode();
         email = user.getEmail();
-        c_num = user.getCredit();
+        //c_num = user.getCredit();
     }
     public boolean validateAll(){
-        return (isvalid_streetAddress(address)&& isvalid_city(city)&& isvalid_state(state)&& isvalid_zipcode(zipcode)&& isvalid_email(email)&& isvalid_payment(c_num));
+        return (isvalid_streetAddress(address)&& isvalid_city(city)&& isvalid_state(state)&& isvalid_zipcode(zipcode)&& isvalid_email(email)&& isvalid_payment("440098483928376", c_num));
     }
     public boolean isvalid_streetAddress(String address){
         String addressRegex = "\\d{1,4}\\s\\w.*";
@@ -59,7 +59,7 @@ public class Validations {
         return(email.matches(emailRegex));
     }
 
-    public boolean isvalid_payment(String c_num) {
+    public boolean isvalid_payment(String cNum, String c_num) {
         boolean valid = false;
         if (c_num.length()>=13 && c_num.length()<=16) {
             if (c_num.charAt(0)=='4') {

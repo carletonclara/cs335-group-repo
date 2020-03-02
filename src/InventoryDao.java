@@ -12,7 +12,7 @@ public class InventoryDao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,6 +31,18 @@ public class InventoryDao {
             e.printStackTrace();
         }
     }
+    //Check Inventory
+    public void checkStock(int prodId){
+        try {
+            Statement checkStock = connection.createStatement();
+            checkStock.execute(
+                    "SELECT PRODUCT_ID, PRODUCT_NAME, STOCK_QUANTITY FROM Inventory "
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //Remove product
     /*

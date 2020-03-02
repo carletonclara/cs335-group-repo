@@ -23,11 +23,12 @@ public class StateSalesTaxDao{
 
     // Getting StateTaxRate from the stateInitial
     // variable taxRate = salestax
-    public Double stateTax(String initial) {
+    public Double salesTax(int id) {
         try {
             Statement getTaxRate= connection.createStatement();
             ResultSet rs = getTaxRate.executeQuery(
-                    "select state_tax_rate from StateSalesTax where state_initial=" + initial
+                    "SELECT StateSalesTax.state_tax_rate FROM StateSalesTax INNER JOIN Users " +
+                    "ON StateSalesTax.state_initial= Users.state WHERE Users.user_id= "+ id
             );
             while (rs.next()) {
                 taxRate = rs.getDouble(1);
