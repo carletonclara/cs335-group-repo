@@ -1,5 +1,6 @@
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class CartDao{
@@ -68,8 +69,8 @@ public class CartDao{
 
     //Put items in a HashTable
     //WONT PRINT DUPLICATES since they have the same name  shouldn't use this
-    public Hashtable<String, Double> items(int id){
-        Hashtable<String, Double> items = new Hashtable();
+   /* public ArrayList<> items(int id){
+        ArrayList <String, Double> items = new Hashtable();
         try {
             Statement getItems = connection.createStatement();
             ResultSet rs = getItems.executeQuery(
@@ -86,6 +87,11 @@ public class CartDao{
         }
         return null;
     }
+
+*/
+
+
+
 
     // Reads and prints all items in a user's cart
     public void list(int id) {
