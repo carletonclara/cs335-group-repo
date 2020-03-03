@@ -29,9 +29,10 @@ public class Checkout {
     }
     
     public String orderConfirmation(User user){
-        String confirmationMessage = ("Hello, " + user.getName() + ",\n\t Thank you for shopping with us! Your order of "
-                + user.getCart() + " has gone through. Your purchases are on their way to " + user.getAddress() +
+        String confirmationMessage = ("Hello, " + user.getName() + ",\n\t Thank you for shopping with us! Your order of \n"
+                + user.getCart() + " \nhas gone through. Your purchases are on their way to " + user.getAddress() +
                 ".");
+
         return confirmationMessage;
     }
     
