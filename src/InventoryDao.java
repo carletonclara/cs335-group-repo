@@ -21,11 +21,12 @@ public class InventoryDao {
 
     //Add product
     public void addStock(int prodId){
+
         try {
             Statement addStock = connection.createStatement();
             addStock.execute(
                     "UPDATE Inventory SET stock_quantity = stock_quantity + 1" +
-                            "WHERE product_id =" + prodId + "AND"
+                            "WHERE product_id =" + prodId + "AND WHERE stock_quantity=" + 0
             );
         } catch (Exception e) {
             e.printStackTrace();
