@@ -28,10 +28,10 @@ public class Checkout {
         return taxTotal;
     }
     
-    public String orderConfirmation(User user){
-        String confirmationMessage = ("Hello, " + user.getName() + ",\n\t Thank you for shopping with us! Your order of \n"
-                + user.getCart() + " \nhas gone through. Your purchases are on their way to " + user.getAddress() +
-                ".");
+    public String orderConfirmation(User user, int userID){
+        String confirmationMessage = ("Hello, " + user.getName() + ",\n\t Thank you for shopping with us! Your order " +
+                "for $" + user.getCart().getFinalPrice(userID) + "has gone through. Your purchases are on their way to " +
+                user.getAddress() + ".");
 
         return confirmationMessage;
     }
