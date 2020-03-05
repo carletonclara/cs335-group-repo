@@ -28,9 +28,9 @@ public class Checkout {
         return taxTotal;
     }
     
-   public String orderConfirmation(User user, int userID){
+    public String orderConfirmation(User user, int userID){
         return  ("Hello, " + user.getName() + ",\n\t Thank you for shopping with us! Your order " +
-                "for $" + user.getCart().getFinalPrice(userID) + "has gone through. Your purchases are on their way to " +
+                "for $" + user.getCart().getFinalPrice(userID) + "has gone through. \nYour purchases are on their way to " +
                 user.getAddress() + ". A receipt has been sent to " + user.getEmail());
 
     }
