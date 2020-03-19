@@ -8,7 +8,7 @@ import java.lang.String;
 
 public class User {
 
-    private UserDao userData = new UserDao("hassana", "1810531");
+    private UserDao userData = new UserDao("carletoc", "1683864");
     private String name;
     private Cart cart;
     private String address;

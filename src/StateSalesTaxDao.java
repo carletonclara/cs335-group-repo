@@ -13,7 +13,7 @@ public class StateSalesTaxDao{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class StateSalesTaxDao{
             rs = selectItems.executeQuery(
                     "SELECT state_id, state_initial, state_name, state_tax_rate FROM StateSalesTax");
             while (rs.next()) {
-                System.out.println("state_id: " + rs.getInt(1));       // Item Index
+                System.out.println("state_id:" + rs.getInt(1));       // Item Index
                 System.out.println("state_initial: " + rs.getString(2));       // Item Index
                 System.out.println("state_name: " + rs.getString(3));      // UserID
                 System.out.println("state_tax_rate: " + rs.getDouble(4));  // Product ID

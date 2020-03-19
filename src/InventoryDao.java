@@ -1,5 +1,9 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Random;
+
 public class InventoryDao {
 
     private Connection connection;
@@ -7,9 +11,9 @@ public class InventoryDao {
     //Constructor
     InventoryDao(String user, String password){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbcs.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +55,7 @@ public class InventoryDao {
             deleteProduct.execute(
                         "DELETE PRODUCT_ID, PRODUCT_NAME, STOCK_QUANTITY FROM Inventory "
                 );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

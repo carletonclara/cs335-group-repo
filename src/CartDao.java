@@ -1,7 +1,7 @@
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class CartDao{
 
@@ -10,22 +10,20 @@ public class CartDao{
     private double totalPrice;
     private double price;
 
-
-
     // Constructor initializes database connection.
     CartDao(String user, String password) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    // Checks if Item is in Stock. If so, adds the item into a cart while subtracting 1 from the stock_quantity in Inventory Column
+    // Checks if Item is in Stock.
+    // If so, adds the item into a cart while subtracting 1 from the stock_quantity in Inventory Column
     public void addItem(int userId, int prodId) {
         try {
             Statement insertItem = connection.createStatement();
@@ -70,6 +68,7 @@ public class CartDao{
             e.printStackTrace();
         }
     }
+
     //Getting Prices of Items in Cart
     public Double itemPrice(int id) {
         try {
@@ -88,7 +87,6 @@ public class CartDao{
         }
         return null;
     }
-
 
     // Reads and prints all items in a user's cart
     public void list(int id) {
