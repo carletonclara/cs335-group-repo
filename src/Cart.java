@@ -19,10 +19,10 @@ public class Cart {
 
     public void remove(int userId, int prodId){cartData.deleteItem(userId, prodId); }
 
-    public Hashtable<String, Double> getItems(int userId){
+    /*public Hashtable<String, Double> getItems(int userId){
         items = cartData.items(userId);
         return items;
-    }
+   } */
     public void price(int userId) {cartData.itemPrice(userId);}
 
     public Double getCartPrice(int userId) {

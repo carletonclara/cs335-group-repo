@@ -6,8 +6,10 @@ import java.util.Hashtable;
 public class CartDao{
 
     private Connection connection;
-    private double price;
+    private int stockQuantity;
     private double totalPrice;
+    private double price;
+
 
 
     // Constructor initializes database connection.
@@ -23,20 +25,35 @@ public class CartDao{
     }
 
 
-    // Adding an item into a cart.
+    // Checks if Item is in Stock. If so, adds the item into a cart while subtracting 1 from the stock_quantity in Inventory Column
     public void addItem(int userId, int prodId) {
         try {
             Statement insertItem = connection.createStatement();
-            insertItem.execute(
-                    "INSERT INTO ShoppingCart (user_id, product_id)" +
-                            "VALUES ("+ userId + "," + prodId +")"
-            );
+            Statement inventoryStockCheck = connection.createStatement();
+            Statement minusStockQuant = connection.createStatement();
+            ResultSet rs = inventoryStockCheck.executeQuery(
+                    "SELECT Inventory.stock_quantity FROM Inventory where Inventory.product_id="+ prodId );
+            while (rs.next()) {
+                stockQuantity = (rs.getInt(1));
+            }
+            if( stockQuantity > 0 ){
+                insertItem.execute(
+                        "INSERT INTO ShoppingCart (user_id, product_id)" +
+                                "VALUES ("+ userId + "," + prodId +")"
+                );
+                minusStockQuant.execute(
+                        "UPDATE Inventory SET stock_quantity = stock_quantity - 1 WHERE product_id =" + prodId);
+
+            }
+            else{
+                System.out.print("YOU CAN NOT ADD THIS ITEM");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // Deleting an item from a cart.
+    // Deleting an item from a cart. And adds the adds 1 to the stock_quantity in Inventory Column
     public void deleteItem(int userId, int prodId) {
         try {
             Statement deleteItem = connection.createStatement();
@@ -44,7 +61,11 @@ public class CartDao{
                     "DELETE FROM ShoppingCart WHERE (product_id = '" + prodId +
                             "' AND user_id = '" + userId + "') ORDER BY cart_items_id ASC LIMIT 1 "
             );
-            }
+            Statement addStockQuant = connection.createStatement();
+            addStockQuant.execute(
+                    "UPDATE Inventory SET stock_quantity = stock_quantity + 1 WHERE product_id =" + prodId);
+
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,37 +81,13 @@ public class CartDao{
                 price = (rs.getDouble(1));
                 totalPrice += price;
             }
+
             return totalPrice;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
-    //Put items in a HashTable
-    //WONT PRINT DUPLICATES since they have the same name  shouldn't use this
-   /* public ArrayList<> items(int id){
-        ArrayList <String, Double> items = new Hashtable();
-        try {
-            Statement getItems = connection.createStatement();
-            ResultSet rs = getItems.executeQuery(
-                    "SELECT Inventory.product_name, Inventory.product_price " +
-                            "FROM Inventory INNER JOIN ShoppingCart " +
-                            "ON Inventory.product_id=ShoppingCart.product_id WHERE ShoppingCart.user_id="+id
-            );
-            while (rs.next()) {
-                items.put(rs.getString(1),rs.getDouble(2));
-            }
-            return items;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-*/
-
-
 
 
     // Reads and prints all items in a user's cart
