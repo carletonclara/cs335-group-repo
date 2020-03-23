@@ -129,7 +129,6 @@ public class UserDao {
             Statement selectUsers = connection.createStatement();
             ResultSet rs = selectUsers.executeQuery(
                     "SELECT user_id, user_name, shipping_address, city, state, zip_code, email FROM Users");
-            // Iterate over result set and print each user's info.
             while (rs.next()) {
                 System.out.println("User Id: " + rs.getInt(1));
                 System.out.println("User Name: " + rs.getString(2));
