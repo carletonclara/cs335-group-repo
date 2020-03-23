@@ -11,18 +11,20 @@ public class Validations {
     private String email;
     private String c_num; //credit card number
 
+    Validations(){}
 
-    public void Validations(int id){
+    Validations(int id){
+
         User user = new User(id);
-        address = user.getAddress();
-        //city = user.getCity();
-        //state = user.getState();
-        //zipcode = user.getZipcode();
+        address = user.getAddress().getStreet();
+        city = user.getAddress().getCity();
+        state = user.getAddress().getState();
+        zipcode = user.getAddress().getZipcode();
         email = user.getEmail();
-        //c_num = user.getCredit();
+        c_num = user.getCredit();
     }
     public boolean validateAll(){
-        return (isvalid_streetAddress(address)&& isvalid_city(city)&& isvalid_state(state)&& isvalid_zipcode(zipcode)&& isvalid_email(email)&& isvalid_payment("440098483928376", c_num));
+        return (isvalid_streetAddress(address)&& isvalid_city(city)&& isvalid_state(state)&& isvalid_zipcode(zipcode)&& isvalid_email(email)&& isvalid_payment(c_num));
     }
     public boolean isvalid_streetAddress(String address){
         String addressRegex = "\\d{1,4}\\s\\w.*";
@@ -35,7 +37,7 @@ public class Validations {
     }
 
     public boolean isvalid_state (String state){
-        List<String> allstates = Arrays.asList("Alabama","AL","Alaska","AK","Arizona","AZ","Arkansas","AR","California","CA","Colorado","CO","Connecticut","CT","Delaware","DE","Florida","FL","Georgia","GA","Hawaii","HI",
+        List<String> allstates = Arrays.asList("Alabama","AL","Alaska","AK","Arizona","AZ","Arkansas","AR","California","CA","Colorado","CO","Connecticut","CT","Delaware","DE", "DC", "Florida","FL","Georgia","GA","Hawaii","HI",
                 "Idaho","ID","Illinois","IL","Indiana","IN","Iowa","IA","Kansas","KS","Kentucky","KY","Louisiana","LA","Maine","ME","Maryland","MD","Massachusetts","MA","Michigan","MI","Minnesota","MN",
                 "Mississippi","MS","Missouri","MO","Montana","MT","Nebraska","NE","Nevada","NV","New Hampshire","NH","New Jersey","NJ","New Mexico","NM","New York","NY","North Carolina","NC",
                 "North Dakota","ND","Ohio","OH","Oklahoma","OK","Oregon","OR","Pennsylvania","PA","Rhode Island","RI","South Carolina","SC","South Dakota","SD","Tennessee","TN","Texas","TX",
@@ -59,7 +61,7 @@ public class Validations {
         return(email.matches(emailRegex));
     }
 
-    public boolean isvalid_payment(String cNum, String c_num) {
+    public boolean isvalid_payment(String c_num) {
         boolean valid = false;
         if (c_num.length()>=13 && c_num.length()<=16) {
             if (c_num.charAt(0)=='4') {
@@ -91,4 +93,5 @@ public class Validations {
         }
         return valid;
     }
+
 }
