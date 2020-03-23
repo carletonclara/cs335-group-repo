@@ -3,6 +3,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * @author Clara Carleton
+ */
+
 public class StateSalesTaxDao{
 
     private Connection connection;
@@ -27,8 +31,9 @@ public class StateSalesTaxDao{
         try {
             Statement getTaxRate= connection.createStatement();
             ResultSet rs = getTaxRate.executeQuery(
-                    "SELECT StateSalesTax.state_tax_rate FROM StateSalesTax INNER JOIN Users " +
-                    "ON StateSalesTax.state_initial= Users.state WHERE Users.user_id= "+ id
+                    "SELECT state_tax_rate FROM StateSalesTax INNER JOIN Address " +
+                            "ON StateSalesTax.state_initial= Address.state WHERE Address.address_id=(" +
+                            "SELECT address_id FROM Users WHERE user_id= "+ id + " )"
             );
             while (rs.next()) {
                 taxRate = rs.getDouble(1);
@@ -41,6 +46,7 @@ public class StateSalesTaxDao{
     }
 
 
+
     // Reads and prints all of the stateTax table info.
     public void list() {
         try {
@@ -49,7 +55,7 @@ public class StateSalesTaxDao{
             rs = selectItems.executeQuery(
                     "SELECT state_id, state_initial, state_name, state_tax_rate FROM StateSalesTax");
             while (rs.next()) {
-                System.out.println("state_id:" + rs.getInt(1));       // Item Index
+                System.out.println("state_id: " + rs.getInt(1));       // Item Index
                 System.out.println("state_initial: " + rs.getString(2));       // Item Index
                 System.out.println("state_name: " + rs.getString(3));      // UserID
                 System.out.println("state_tax_rate: " + rs.getDouble(4));  // Product ID
