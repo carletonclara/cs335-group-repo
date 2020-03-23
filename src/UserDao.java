@@ -1,10 +1,20 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+/**
+ * @author Clara Carleton
+ */
 
 public class UserDao {
 
     private Connection connection;
     private String address;
     private String name;
+    private ArrayList<User> users;
+    boolean useDb = true;
 
     //Constructor
     UserDao(String user, String password){
@@ -16,6 +26,23 @@ public class UserDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Constructor that accepts a list of Users.
+     * @param users list of books
+     */
+    UserDao(ArrayList<User> users) {
+        this.useDb = false;
+        this.users = users;
+    }
+
+    /**
+     * Empty constructor to support adding users one-by-one.
+     */
+    UserDao() {
+        this.useDb = false;
+        this.users = new ArrayList<User>();
     }
 
     //Add user
@@ -61,12 +88,13 @@ public class UserDao {
         return null;
     }
 
-    //Return street address
-    public String address(int id){
+    //Return user's credit card number
+    public String credit_num(int id){
         try {
-            Statement getUserAddress = connection.createStatement();
-            ResultSet rs = getUserAddress.executeQuery(
-                    "SELECT Users.shipping_address FROM Users WHERE user_id="+id
+            Statement getCreditNum = connection.createStatement();
+            ResultSet rs = getCreditNum.executeQuery(
+                    "SELECT card_number " +
+                            "FROM PaymentMethod WHERE user_id="+id
             );
             while (rs.next()) {
                 address = (rs.getString(1));
@@ -77,32 +105,6 @@ public class UserDao {
         }
         return null;
     }
-
-    //Return city
-    /*
-    public String city(int id) {
-
-    }
-     */
-
-    //Return state
-    public String state(int id){
-        try {
-            Statement getUserEmail = connection.createStatement();
-            ResultSet rs = getUserEmail.executeQuery(
-                    "SELECT Users.state FROM Users WHERE user_id="+id
-            );
-            while (rs.next()) {
-                address = (rs.getString(1));
-            }
-            return address;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    //Return zipcode
 
     //Return email
     public String email(int id){
