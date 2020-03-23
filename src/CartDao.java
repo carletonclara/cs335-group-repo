@@ -1,14 +1,23 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Hashtable;
+/**
+ * @ author Amran Hassan
+ */
 
 public class CartDao{
 
+    private static DecimalFormat df = new DecimalFormat("#.##");
+
     private Connection connection;
     private int stockQuantity;
-    private double totalPrice;
     private double price;
+    private double totalPrice;
 
     // Constructor initializes database connection.
     CartDao(String user, String password) {
@@ -21,6 +30,7 @@ public class CartDao{
             e.printStackTrace();
         }
     }
+
 
     // Checks if Item is in Stock.
     // If so, adds the item into a cart while subtracting 1 from the stock_quantity in Inventory Column
@@ -44,7 +54,7 @@ public class CartDao{
 
             }
             else{
-                System.out.print("YOU CAN NOT ADD THIS ITEM");
+                System.out.println("!!!!! Item is not in stock !!!!!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +90,6 @@ public class CartDao{
                 price = (rs.getDouble(1));
                 totalPrice += price;
             }
-
             return totalPrice;
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,20 +97,55 @@ public class CartDao{
         return null;
     }
 
-    // Reads and prints all items in a user's cart
+    /**
+     * @ author Clara Carleton
+     */
+    //Returns an arraylist of the item ids
+    public ArrayList<Integer> getItemIds(int user_id){
+        ArrayList<Integer> item_ids = new ArrayList<>();
+        try {
+            Statement getItemsIds = connection.createStatement();
+            ResultSet rs = getItemsIds.executeQuery(
+                    "SELECT ShoppingCart.cart_items_id " +
+                            "FROM ShoppingCart WHERE ShoppingCart.user_id="+user_id
+            );
+            while (rs.next()) {
+                item_ids.add(rs.getInt(1));
+            }
+            return item_ids;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @ author Clara Carleton
+     */
+    //Clears user's cart after completing the purchase
+    public void clearCart(int user_id){
+        try {
+            Statement clearCart = connection.createStatement();
+            clearCart.execute(
+                    "DELETE FROM ShoppingCart WHERE user_id =" + user_id
+            );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Reads and prints all items in a user's cart and the item's price
     public void list(int id) {
         try {
             Statement selectItems = connection.createStatement();
             ResultSet rs = selectItems.executeQuery(
-                    "SELECT ShoppingCart.cart_items_id, ShoppingCart.user_id, Inventory.product_id, Inventory.product_price " +
-                    "FROM Inventory INNER JOIN ShoppingCart " +
+                    "SELECT Inventory.product_name, Inventory.product_price " +
+                            "FROM Inventory INNER JOIN ShoppingCart " +
                             "ON Inventory.product_id=ShoppingCart.product_id WHERE ShoppingCart.user_id="+id);
             while (rs.next()) {
-                System.out.println("Cart_Items_ID: " + rs.getInt(1));       // Item Index
-                System.out.println("UserID: " + rs.getInt(2));      // UserID
-                System.out.println("ProductID: " + rs.getInt(3));  // Product ID
-                System.out.println("ProductPrice: " + rs.getInt(4));  // Product ID
-                System.out.println("\n");
+                System.out.print(rs.getString(1) + "\t");
+                System.out.println("$"+df.format(rs.getDouble(2)));
             }
 
         } catch (Exception e) {
