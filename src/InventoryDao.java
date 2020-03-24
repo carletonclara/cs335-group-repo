@@ -3,7 +3,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class InventoryDao {
 
@@ -16,11 +15,12 @@ public class InventoryDao {
     private int initialQuantity;
     private int soldUnits;
     private int stockQuantity;
+    private int numberOfProducts;
 
     //Constructor
     InventoryDao(String user, String password){
         try {
-            Class.forName("com.mysql.jdbcs.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
@@ -45,17 +45,28 @@ public class InventoryDao {
         this.products = new ArrayList<Inventory>();
     }
 
+    //Checks the Amount of Products listed in Inventory
+    public Integer numberOfProducts(int prodId){
+        try {
+            Statement amountOfProducts = connection.createStatement();
+            ResultSet rs = amountOfProducts.executeQuery(
+                    "SELECT COUNT(product_id) FROM Inventory");
+            while (rs.next()) {
+                numberOfProducts = (rs.getInt(1));
+            }
+            return numberOfProducts;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     //Adds Stock to a product
     public void addStock(int prodId){
         try {
-            Random rand = new Random();
-            int randAddNum = rand.nextInt(10);//Random Number of stock to add
-            //int stockQuantNum = rand.nextInt(10); //Random Number to trigger the add stock Function to actually work
             Statement addStock = connection.createStatement();
             addStock.execute(
-                    "UPDATE Inventory SET stock_quantity = stock_quantity + randAddNum" +
-                            " WHERE product_id =" + prodId);
+                    "UPDATE Inventory SET stock_quantity = stock_quantity + 10 WHERE product_id =" + prodId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +77,7 @@ public class InventoryDao {
         try {
             Statement getProductName = connection.createStatement();
             ResultSet rs = getProductName.executeQuery(
-                    "SELECT PRODUCT_NAME FROM Inventory " );
+                    "SELECT PRODUCT_NAME FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 productName = (rs.getString(1));
             }
@@ -82,7 +93,7 @@ public class InventoryDao {
         try {
             Statement getProductDepartment = connection.createStatement();
             ResultSet rs = getProductDepartment.executeQuery(
-                    "SELECT PRODUCT_DEPARTMENT FROM Inventory " );
+                    "SELECT PRODUCT_DEPARTMENT FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 productDepartment = (rs.getString(1));
             }
@@ -98,7 +109,7 @@ public class InventoryDao {
         try {
             Statement getProductPrice = connection.createStatement();
             ResultSet rs = getProductPrice.executeQuery(
-                    "SELECT PRODUCT_PRICE  FROM Inventory" );
+                    "SELECT PRODUCT_PRICE  FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 productPrice = (rs.getDouble(1));
             }
@@ -113,7 +124,7 @@ public class InventoryDao {
         try {
             Statement getInitialQuantity = connection.createStatement();
             ResultSet rs = getInitialQuantity.executeQuery(
-                    "SELECT INITIAL_QUANTITY FROM Inventory " );
+                    "SELECT INITIAL_QUANTITY FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 initialQuantity = (rs.getInt(1));
             }
@@ -128,7 +139,7 @@ public class InventoryDao {
         try {
             Statement getStockQuantity = connection.createStatement();
             ResultSet rs = getStockQuantity.executeQuery(
-                    "SELECT STOCK_QUANTITY FROM Inventory " );
+                    "SELECT STOCK_QUANTITY FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 stockQuantity = (rs.getInt(1));
             }
@@ -144,7 +155,7 @@ public class InventoryDao {
         try {
             Statement getSoldUnits = connection.createStatement();
             ResultSet rs = getSoldUnits.executeQuery(
-                    "SELECT SOLD_UNITS FROM Inventory " );
+                    "SELECT SOLD_UNITS FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 soldUnits = (rs.getInt(1));
             }
@@ -176,7 +187,8 @@ public class InventoryDao {
             Statement deleteProduct = connection.createStatement();
             deleteProduct.execute(
                     "DELETE PRODUCT_ID, PRODUCT_NAME, PRODUCT_DEPARTMENT, PRODUCT_PRICE, " +
-                            "INITIAL_QUANTITY, STOCK_QUANTITY, SOLD_UNITS FROM Inventory");
+                            "INITIAL_QUANTITY, STOCK_QUANTITY, SOLD_UNITS FROM Inventory WHERE user_id="+ prodId
+            );
 
         } catch (Exception e) {
             e.printStackTrace();

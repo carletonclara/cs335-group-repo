@@ -3,22 +3,31 @@ public class Inventory {
     private InventoryDao productData = new InventoryDao("carletoc", "1683864");
     private String productName;
     private String productDepartment;
+   // private void addStock;
     private double productPrice;
     private int initialQuantity;
     private int soldUnits;
     private int stockQuantity;
+    private int numberOfProducts;
+
 
     Inventory(int prodId){
+      //  addStock = productData.addStock(prodId);
         productName = productData.productName(prodId);
         productDepartment = productData.productDepartment(prodId);
         productPrice = productData.productPrice(prodId);
         initialQuantity = productData.checkInitialQuantity(prodId);
         soldUnits = productData.checkSoldAmount(prodId);
         stockQuantity = productData.checkStockLeft(prodId);
+        numberOfProducts = productData.numberOfProducts(prodId);
 
     }
 
+    public void addStock(int prodId){ }
+
     public String getProductName(){ return productName; }
+
+    public Integer getNumberOfProducts(){ return numberOfProducts; }
 
     public String getProductDepartment(){ return productDepartment; }
 
