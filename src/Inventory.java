@@ -1,6 +1,6 @@
 public class Inventory {
 
-    private InventoryDao productData = new InventoryDao("hassana", "1810531");
+    private InventoryDao productData = new InventoryDao("carletoc", "1683864");
     private String productName;
     private String productDepartment;
    // private void addStock;
