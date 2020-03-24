@@ -5,10 +5,11 @@ import java.util.ArrayList;
  */
 
 public class Multithreading extends Thread{
+
     private int user_id;
-    public Multithreading(int user_id){
-        this.user_id = user_id;
-    }
+
+    public Multithreading(int user_id){ this.user_id = user_id; }
+
     public void run() {
         User user = new User(user_id);
         Cart cart = user.getCart();
