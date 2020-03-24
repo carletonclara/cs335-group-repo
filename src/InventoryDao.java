@@ -22,7 +22,7 @@ public class InventoryDao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class InventoryDao {
         try {
             Statement addStock = connection.createStatement();
             addStock.execute(
-                    "UPDATE Inventory SET stock_quantity = stock_quantity + 10 WHERE product_id =" + prodId);
+                    "UPDATE Inventory SET stock_quantity = stock_quantity + 3 WHERE product_id = " + prodId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class InventoryDao {
         try {
             Statement getInitialQuantity = connection.createStatement();
             ResultSet rs = getInitialQuantity.executeQuery(
-                    "SELECT INITIAL_QUANTITY FROM Inventory WHERE product_id =" + prodId );
+                    "SELECT initial_quantity FROM Inventory WHERE product_id =" + prodId );
             while (rs.next()) {
                 initialQuantity = (rs.getInt(1));
             }

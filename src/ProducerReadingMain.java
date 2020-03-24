@@ -15,7 +15,27 @@ public class ProducerReadingMain {
             MultithreadingProducer p9 = new MultithreadingProducer(9);
             MultithreadingProducer p10 = new MultithreadingProducer(10);
             p1.start();
+            p2.start();
             p1.sleep(1000);
+            p3.start();
+            p4.start();
+            p2.sleep(1000);
+            p4.sleep(1000);
+            p3.sleep(1000);
+
+            p5.start();
+            p6.start();
+            p5.sleep(1000);
+            p7.start();
+            p8.start();
+            p6.sleep(1000);
+            p8.sleep(1000);
+            p7.sleep(1000);
+
+            p9.start();
+            p10.start();
+            p10.sleep(1000);
+            p9.sleep(1000);
 
         }
 }

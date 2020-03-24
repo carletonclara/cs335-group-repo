@@ -1,6 +1,6 @@
 public class Inventory {
 
-    private InventoryDao productData = new InventoryDao("carletoc", "1683864");
+    private InventoryDao productData = new InventoryDao("hassana", "1810531");
     private String productName;
     private String productDepartment;
    // private void addStock;
@@ -12,7 +12,6 @@ public class Inventory {
 
 
     Inventory(int prodId){
-      //  addStock = productData.addStock(prodId);
         productName = productData.productName(prodId);
         productDepartment = productData.productDepartment(prodId);
         productPrice = productData.productPrice(prodId);
@@ -23,7 +22,7 @@ public class Inventory {
 
     }
 
-    public void addStock(int prodId){ }
+    public void addStock(int prodId){ productData.addStock(prodId); ; }
 
     public String getProductName(){ return productName; }
 
