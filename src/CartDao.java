@@ -24,7 +24,7 @@ public class CartDao{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_carletoc?useUnicode=yes&characterEncoding=UTF-8",
+                    "jdbc:mysql://dany.simmons.edu:3306/33501sp20_hassana?useUnicode=yes&characterEncoding=UTF-8",
                     user, password);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,6 +39,7 @@ public class CartDao{
             Statement insertItem = connection.createStatement();
             Statement inventoryStockCheck = connection.createStatement();
             Statement minusStockQuant = connection.createStatement();
+            Statement addSoldUnit = connection.createStatement();
             ResultSet rs = inventoryStockCheck.executeQuery(
                     "SELECT Inventory.stock_quantity FROM Inventory where Inventory.product_id="+ prodId );
             while (rs.next()) {
@@ -51,6 +52,8 @@ public class CartDao{
                 );
                 minusStockQuant.execute(
                         "UPDATE Inventory SET stock_quantity = stock_quantity - 1 WHERE product_id =" + prodId);
+                addSoldUnit.execute(
+                        "UPDATE Inventory SET sold_units = sold_units + 1 WHERE product_id =" + prodId);
 
             }
             else{
@@ -70,9 +73,11 @@ public class CartDao{
                             "' AND user_id = '" + userId + "') ORDER BY cart_items_id ASC LIMIT 1 "
             );
             Statement addStockQuant = connection.createStatement();
+            Statement minusSoldUnit = connection.createStatement();
             addStockQuant.execute(
                     "UPDATE Inventory SET stock_quantity = stock_quantity + 1 WHERE product_id =" + prodId);
-
+            minusSoldUnit.execute(
+                    "UPDATE Inventory SET sold_units = sold_units - 1 WHERE product_id =" + prodId);
         }
         catch (Exception e) {
             e.printStackTrace();

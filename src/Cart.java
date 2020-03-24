@@ -10,10 +10,10 @@ public class Cart {
 
     private static DecimalFormat df = new DecimalFormat("#.##");
 
-    private CartDao cartData = new CartDao("carletoc", "1683864");
+    private CartDao cartData = new CartDao("hassana", "1810531");
     private double totalPrice;
 
-    private StateSalesTaxDao taxData = new StateSalesTaxDao("carletoc", "1683864");
+    private StateSalesTaxDao taxData = new StateSalesTaxDao("hassana", "1810531");
     private Double taxRate;
     private Double finalPrice;
     private ArrayList<Integer> item_ids;
