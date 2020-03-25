@@ -22,7 +22,7 @@ public class Inventory {
 
     }
 
-    public void addStock(int prodId){ productData.addStock(prodId); ; }
+    public void addStock(int prodId){ productData.addStock(prodId); }
 
     public String getProductName(){ return productName; }
 
