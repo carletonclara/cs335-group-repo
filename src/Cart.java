@@ -13,6 +13,8 @@ public class Cart {
     private CartDao cartData = new CartDao("carletoc", "1683864");
     private double totalPrice;
 
+    private OrderConfirmationDAO OrderConfirmationData = new OrderConfirmationDAO("carletoc", "1683864");
+
     private StateSalesTaxDao taxData = new StateSalesTaxDao("carletoc", "1683864");
     private Double taxRate;
     private Double finalPrice;
@@ -48,6 +50,7 @@ public class Cart {
 
     public void checkout(int user_id){
         User user = new User(user_id);
+        OrderConfirmation order = new OrderConfirmation(user_id);
         Validations v = new Validations(user_id);
         System.out.println("*****"+user.getName() + " is now checking out"+"*****");
         if(v.validateAll()){
@@ -55,6 +58,7 @@ public class Cart {
                     "for $" + df.format(getFinalPrice(user_id)) + " has gone through. \nYour purchases are on their way to " +
                     user.getAddress() + ". A receipt has been sent to " + user.getEmail());
             list(user_id);
+            order.save(user_id, getFinalPrice(user_id)); //Transfers the data to OrderConfirmationTable
             cartData.clearCart(user_id);
         }else{
             System.out.println(user.getName() + ", please update your information");
