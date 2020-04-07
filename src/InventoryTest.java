@@ -19,9 +19,9 @@ class InventoryTest {
      */
     @Test
     void addStock() {
-        assertEquals(10,productData.checkStockLeft(1));
+        int currentStock = productData.checkStockLeft(1) + 3;
         addStock();
-        assertEquals(13,productData.checkStockLeft(1));
+        assertEquals(currentStock, productData.checkStockLeft(1));
     }
 
     /**
@@ -72,7 +72,7 @@ class InventoryTest {
     @Test
     void getSoldUnits() {
         soldUnits = productData.checkSoldAmount(1);
-        assertEquals(0,soldUnits);
+        assertEquals(9,soldUnits);
     }
 
     /**
@@ -80,6 +80,7 @@ class InventoryTest {
      */
     @Test
     void getStockQuantity() {
-        stockQuantity = productData.checkStockLeft(1);
-        assertEquals(10, stockQuantity);
+        int stockQuantity = (productData.checkStockLeft(1)-1)%3;
+        assertEquals(1, stockQuantity);
     }
+}
