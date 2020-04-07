@@ -20,8 +20,9 @@ class InventoryDaoTest {
      */
     @Test
     void addStock() {
+        int currentStock = productData.checkStockLeft(2) + 3;
         productData.addStock(2);
-        assertEquals(13, productData.checkStockLeft(2));
+        assertEquals(currentStock, productData.checkStockLeft(2));
     }
 
     /**
@@ -61,7 +62,9 @@ class InventoryDaoTest {
      */
     @Test
     void checkStockLeft() {
-        assertEquals(10,productData.checkStockLeft(2));
+        /**Expecting the stock minus one to be divisible by 3*/
+        int stockMinOne = (productData.checkStockLeft(2)-1)%3;
+        assertEquals(0,stockMinOne);
     }
 
     /**
@@ -69,10 +72,9 @@ class InventoryDaoTest {
      */
     @Test
     void checkSoldAmount() {
-        assertEquals(0,productData.checkSoldAmount(2));
+        assertEquals(8,productData.checkSoldAmount(2));
     }
 
-//I was a bit afraid that testing these last three would screw something up    
     /**
      * @author Lila Crum
      */
@@ -92,6 +94,9 @@ class InventoryDaoTest {
         assertEquals(9, productData.numberOfProducts(1));
     }*/
 
+    /**
+     * @author Lila Crum
+     */
     @Test
     void list() {
     }
