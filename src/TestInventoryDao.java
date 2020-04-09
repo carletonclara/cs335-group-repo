@@ -6,7 +6,6 @@ import java.util.Map;
  * @author Lila Crum
  */
 
-/** it hates it when I implement*/
 public class TestInventoryDao extends InventoryDao{
 
     Map<Integer, Inventory> productMap = new HashMap<Integer, Inventory>();
@@ -14,6 +13,7 @@ public class TestInventoryDao extends InventoryDao{
     private ArrayList<Inventory> products;
 
     //constructor
+    /** I had to add a getProductID method to Inventory */
     TestInventoryDao(ArrayList<Inventory> productList){
         //Loading in DB from outside
         for(Inventory inventory : productList){
