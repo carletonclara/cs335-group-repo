@@ -1,5 +1,5 @@
 /**
- * @author Amran Hassan
+ * @author Amran Hassan & Lila Crum
  */
 public class Inventory {
 
@@ -24,8 +24,24 @@ public class Inventory {
         stockQuantity = productData.checkStockLeft(prodId);
         numberOfProducts = productData.numberOfProducts(prodId);
         productID = prodId;
-
     }
+
+    /**
+     * @author Lila Crum
+     */
+
+    Inventory(int prodId, String name, String dept, double price){
+        productID = prodId;
+        productName = name;
+        productDepartment = dept;
+        productPrice = price;
+        initialQuantity = 10;
+        soldUnits = 0;
+        stockQuantity = 10;
+        numberOfProducts = 10;
+    }
+
+
 
     /**
      * @author Amran Hassan
@@ -36,10 +52,7 @@ public class Inventory {
      * @author Amran Hassan
      */
     public String getProductName(){ return productName; }
-    
-    /**
-     * @author Lila Crum
-     */
+
     public int getProductID() { return productID; }
 
     /**
