@@ -10,8 +10,6 @@ public class TestInventoryDao extends InventoryDao{
 
     Map<Integer, Inventory> productMap = new HashMap<Integer, Inventory>();
 
-    private ArrayList<Inventory> products;
-
     //constructor
     TestInventoryDao(ArrayList<Inventory> productList){
         //Loading in DB from outside
