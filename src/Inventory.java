@@ -45,14 +45,12 @@ public class Inventory {
     /**
      * @author Lila Crum
      */
-    public void increaseStockQuantity(int additionalProduct) {
-        this.stockQuantity += additionalProduct;
-    }
+    public void increaseStockQuantity(int additionalProduct) { this.stockQuantity += additionalProduct; }
 
     /**
      * @author Amran Hassan
      */
-    public void addStock(int prodId){ productData.addStock(prodId); ; }
+    public void addStock(int prodId){ productData.addStock(prodId); }
 
     /**
      * @author Amran Hassan
