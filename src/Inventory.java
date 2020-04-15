@@ -1,3 +1,4 @@
+
 /**
  * @author Amran Hassan & Lila Crum
  */
@@ -41,7 +42,12 @@ public class Inventory {
         numberOfProducts = 10;
     }
 
-
+    /**
+     * @author Lila Crum
+     */
+    public void increaseStockQuantity(int additionalProduct) {
+        this.stockQuantity += additionalProduct;
+    }
 
     /**
      * @author Amran Hassan
