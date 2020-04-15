@@ -6,7 +6,7 @@ import java.util.Map;
  * @author Lila Crum
  */
 
-public class TestInventoryDao extends InventoryDao{
+public class TestInventoryDao extends InventoryDao {
 
     Map<Integer, Inventory> productMap = new HashMap<Integer, Inventory>();
 
@@ -18,6 +18,7 @@ public class TestInventoryDao extends InventoryDao{
         }
     }
 
+
     /**
      * @author Lila Crum
      */
@@ -28,9 +29,7 @@ public class TestInventoryDao extends InventoryDao{
     /**
      * @author Lila Crum
      */
-    public void addStock(int prodId){
-        productMap.get(prodId).addStock(prodId);
-    }
+    public void addStock(int prodId){ productMap.get(prodId).increaseStockQuantity(3); }
 
     /**
      * @author Lila Crum
@@ -90,4 +89,5 @@ public class TestInventoryDao extends InventoryDao{
         }
 
     }
+
 }
