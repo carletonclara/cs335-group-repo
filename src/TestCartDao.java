@@ -57,9 +57,7 @@ public class TestCartDao {
                 }
             }
         }
-        System.out.print(productPrices);
-        System.out.print(price);
-        return price;
+   return price;
 }
 
 
@@ -72,7 +70,6 @@ public class TestCartDao {
             if(entry.getValue().get(1)== userId) {
                 cartItemsIds.add(entry.getKey());
             }
-        System.out.print(cartItemsIds);
         }
     return cartItemsIds;
     }
