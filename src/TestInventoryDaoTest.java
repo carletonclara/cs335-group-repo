@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +11,8 @@ class TestInventoryDaoTest {
 
     private TestInventoryDao productData;
 
-    TestInventoryDaoTest(){
+    @BeforeEach
+    void setUp(){
         ArrayList<Inventory> productList = new ArrayList<Inventory>();
 
         Inventory prod1 = new Inventory(1,"USB thumb drive","Electronics",22.63);
@@ -49,9 +51,10 @@ class TestInventoryDaoTest {
      */
     @Test
     void addStock() {
-        /**Asserts that after addStock the stock is equal to the original stock plus 3*/
-        int currentStock = productData.checkStockLeft(2) + 3;
+        int currentStock = productData.checkStockLeft(2);
+        assertEquals(10,currentStock);
         productData.addStock(2);
+        currentStock+=3;
         assertEquals(currentStock, productData.checkStockLeft(2));
     }
 
@@ -90,9 +93,9 @@ class TestInventoryDaoTest {
      */
     @Test
     void checkStockLeft() {
-        /**Expecting the stock minus one to be divisible by 3*/
-        int stockMinOne = (productData.checkStockLeft(2)-1)%3;
-        assertEquals(0,stockMinOne);
+        assertEquals(10,productData.checkStockLeft(8));
+        productData.addStock(8);
+        assertEquals(13,productData.checkStockLeft(8));
     }
 
     /**
@@ -101,11 +104,4 @@ class TestInventoryDaoTest {
     @Test
     void checkSoldAmount() { assertEquals(0,productData.checkSoldAmount(7)); }
 
-    /**
-     * @author Lila Crum
-     */
-    @Test
-    void list() {
-        productData.list();
-    }
 }
